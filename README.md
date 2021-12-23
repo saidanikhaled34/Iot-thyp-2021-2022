@@ -17,3 +17,5 @@ structuré SQL.
 modèle, ils devront enquêter pour faire les connexions)
 - Une planche à pain.
 - Trois câbles de connexion mâle/mâle
+ ### information: 
+Tous les détails de projet dans le rapport pdf.

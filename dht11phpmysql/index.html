@@ -1,0 +1,114 @@
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>DHT11 php MySQL</title>
+  <link href="css/style.css" rel="stylesheet"/>
+  <link href="css/bootstrap-grid.min.css" rel="stylesheet"/>
+    <!-- Favicon  -->
+    <link href="images/fav-icon.png" rel="icon" type="image/png">
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>List des étudiants</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+<style>
+    .modal-dialog {
+        max-width: 70%;
+        max-height: calc(100vh - 50px);
+        overflow-y: scroll;
+        /*max-width: 70% !important;*/
+    }
+    .data-table  {
+        height: 1500px;
+        max-height: 1500px;
+        overflow: auto;
+        display:inline-block;
+    }
+       
+    .chart {
+    max-width: 500px;
+    margin: 35px auto;
+    }
+</style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="jumbotron">
+            <h1>Projet IOT M2 THYP</h1>
+            <h2>SAIDANI Khaled Mohamed Elamine</h2>
+            <h2>Promotion 2021 - 2022</h2>
+            <p> Mon Projet est détecte le température et l'humidité avec DHT11 ,ESP8266, MySQL est afficher le résultat dans page web php </p>
+            
+        </div>
+        
+        <div class="row" id="content">
+    
+        </div>
+        
+    </div>
+    
+    <div class="container">
+        <h2><img class="icon" src="images/fav-icon.png">DHT11 php MySQL</h2>
+        <div class="row">
+            <div class="col-lg-3 col-md-5">
+                <div class="card">
+                    <h3>TEMPERATURE</h3>
+                    <div class="card-content">
+                        <div class="gauge-temperature GaugeMeter gaugeMeter"  data-theme="green" data-width="16"  data-style="Arch" data-animationstep="0"></div>
+                    </div>
+                    <p class="value-temperature">0 C°</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-5">
+                <div class="card">
+                    <h3>HUMÉDITE</h3>
+                    <div class="card-content">
+                        <div class="gauge-humidity gaugeMeter" data-theme="blue" data-width="16"  data-style="Arch" data-animationstep="0"></div>
+                    </div>  
+                    <p class="value-humidity">0 %</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script type='text/javascript' src="js/jquery-3.5.1.min.js"></script>
+<script type='text/javascript' src="js/gauge-meter.js"></script>
+<script>
+    $(document).ready(function () {
+
+       setInterval(charts, 1500);
+
+    });
+
+    function charts(){
+
+        $.ajax({
+            url:"http://localhost/dht11phpmysql/backend/getData.php",
+            type:"POST",
+            dataType:"json",
+            success:function(data){
+                
+                $(".gauge-temperature").gaugeMeter({ percent: data.temperature*100/50});
+                $(".value-temperature").html(data.temperature+" C°");    
+
+                $(".gauge-humidity").gaugeMeter({ percent: data.humidity});
+                $(".value-humidity").html(data.humidity+" %");
+
+            }
+        });
+
+    }
+
+</script>
